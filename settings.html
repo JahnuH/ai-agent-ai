@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - AI Agent Studio</title>
+  <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Custom styles for enhanced aesthetics */
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .floating-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      background: #374151;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .toggle-switch.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .toggle-switch.active::after {
+      transform: translateX(24px);
+    }
+    
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .setting-card {
+      transition: all 0.3s ease;
+    }
+    
+    .setting-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans overflow-hidden">
+
+  <!-- Background Effects -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-blue-500 opacity-10 blur-3xl floating-animation"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-purple-500 opacity-10 blur-3xl floating-animation" style="animation-delay: -3s;"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center p-4 glass-effect shadow-lg sticky top-0 z-50 border-b border-gray-700/50">
+    <div class="flex items-center space-x-3">
+      <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition">
+        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">AI</span>
+        </div>
+        <h1 class="text-xl font-bold text-gradient">AI Agent Studio</h1>
+      </a>
+    </div>
+    
+    <div class="flex items-center space-x-4">
+      <span class="text-gray-400 text-sm">Settings</span>
+      <a href="index.html" class="px-4 py-2 rounded-lg glass-effect hover:bg-gray-700/50 transition text-sm">
+        ← Back to Dashboard
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="flex h-[calc(100vh-5rem)]">
+
+    <!-- Settings Sidebar -->
+    <aside class="glass-effect w-64 p-4 border-r border-gray-700/50 flex flex-col">
+      <h2 class="text-lg font-semibold mb-6 text-gradient">Settings</h2>
+      <nav class="flex flex-col gap-2 flex-1">
+        <a href="#general" class="flex items-center space-x-3 bg-blue-600/20 text-blue-300 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>⚙️</span>
+          <span>General</span>
+        </a>
+        <a href="#account" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>👤</span>
+          <span>Account</span>
+        </a>
+        <a href="#agents" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>🤖</span>
+          <span>Agent Settings</span>
+        </a>
+        <a href="#notifications" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>🔔</span>
+          <span>Notifications</span>
+        </a>
+        <a href="#integrations" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>🔗</span>
+          <span>Integrations</span>
+        </a>
+        <a href="#billing" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>💳</span>
+          <span>Billing</span>
+        </a>
+        <a href="#security" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition setting-nav-item">
+          <span>🔒</span>
+          <span>Security</span>
+        </a>
+      </nav>
+      
+      <!-- Usage Summary -->
+      <div class="mt-auto pt-4 border-t border-gray-700/50">
+        <div class="text-xs text-gray-400 text-center">
+          <div class="mb-2">Monthly Usage</div>
+          <div class="bg-gray-700/50 rounded-full h-2 mb-2">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: 45%"></div>
+          </div>
+          <div class="text-white font-mono">2,847 / 5,000 API calls</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto scrollbar-hide">
+      <div class="p-8 max-w-4xl">
+        
+        <!-- General Settings -->
+        <section id="general" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">General Settings</h2>
+          
+          <div class="grid gap-6">
+            <!-- Theme Settings -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🎨</span>
+                <span>Appearance</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Dark Mode</div>
+                    <div class="text-sm text-gray-400">Use dark theme for better readability</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Animations</div>
+                    <div class="text-sm text-gray-400">Enable smooth animations and transitions</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Compact Mode</div>
+                    <div class="text-sm text-gray-400">Reduce spacing for more content</div>
+                  </div>
+                  <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Language & Region -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🌍</span>
+                <span>Language & Region</span>
+              </h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Language</label>
+                  <select class="w-full px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="zh">中文</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Timezone</label>
+                  <select class="w-full px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option value="utc">UTC</option>
+                    <option value="est">Eastern Time</option>
+                    <option value="pst">Pacific Time</option>
+                    <option value="gmt">GMT</option>
+                    <option value="ist" selected>India Standard Time</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Account Settings -->
+        <section id="account" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">Account Settings</h2>
+          
+          <div class="grid gap-6">
+            <!-- Profile Information -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>👤</span>
+                <span>Profile Information</span>
+              </h3>
+              <div class="flex items-center space-x-6 mb-6">
+                <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center text-2xl font-bold">
+                  JD
+                </div>
+                <div class="flex-1">
+                  <button class="px-4 py-2 rounded-lg glass-effect hover:bg-gray-700/50 transition text-sm">
+                    Change Avatar
+                  </button>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                  <input type="text" value="John Doe" class="w-full px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                  <input type="email" value="john.doe@example.com" class="w-full px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Company</label>
+                  <input type="text" value="Tech Corp" class="w-full px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Role</label>
+                  <input type="text" value="Product Manager" class="w-full px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                </div>
+              </div>
+              <div class="mt-4">
+                <button class="gradient-bg px-6 py-2 rounded-lg hover:shadow-lg transition">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Agent Settings -->
+        <section id="agents" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">Agent Settings</h2>
+          
+          <div class="grid gap-6">
+            <!-- Default Configurations -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🤖</span>
+                <span>Default Configurations</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Auto-start new agents</div>
+                    <div class="text-sm text-gray-400">Automatically activate agents after creation</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Enable error retry</div>
+                    <div class="text-sm text-gray-400">Automatically retry failed agent tasks</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Default execution timeout (minutes)</label>
+                  <input type="number" value="30" min="1" max="1440" class="w-32 px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Max concurrent agents</label>
+                  <select class="w-48 px-3 py-2 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                    <option value="5">5 agents</option>
+                    <option value="10" selected>10 agents</option>
+                    <option value="25">25 agents</option>
+                    <option value="50">50 agents</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Notifications -->
+        <section id="notifications" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">Notifications</h2>
+          
+          <div class="grid gap-6">
+            <!-- Notification Preferences -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🔔</span>
+                <span>Notification Preferences</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Email notifications</div>
+                    <div class="text-sm text-gray-400">Receive updates via email</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Push notifications</div>
+                    <div class="text-sm text-gray-400">Browser push notifications</div>
+                  </div>
+                  <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Agent completion alerts</div>
+                    <div class="text-sm text-gray-400">Notify when agents complete tasks</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Error notifications</div>
+                    <div class="text-sm text-gray-400">Alert on agent failures</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Daily digest</div>
+                    <div class="text-sm text-gray-400">Daily summary of agent activities</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Integrations -->
+        <section id="integrations" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">Integrations</h2>
+          
+          <div class="grid gap-6">
+            <!-- Connected Services -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🔗</span>
+                <span>Connected Services</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">
+                      G
+                    </div>
+                    <div>
+                      <div class="text-white font-medium">Gmail</div>
+                      <div class="text-sm text-green-400">Connected</div>
+                    </div>
+                  </div>
+                  <button class="px-4 py-2 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600/30 transition">
+                    Disconnect
+                  </button>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center text-white font-bold">
+                      W
+                    </div>
+                    <div>
+                      <div class="text-white font-medium">WhatsApp Business</div>
+                      <div class="text-sm text-green-400">Connected</div>
+                    </div>
+                  </div>
+                  <button class="px-4 py-2 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600/30 transition">
+                    Disconnect
+                  </button>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-lg bg-purple-600 flex items-center justify-center text-white font-bold">
+                      S
+                    </div>
+                    <div>
+                      <div class="text-white font-medium">Slack</div>
+                      <div class="text-sm text-gray-400">Not connected</div>
+                    </div>
+                  </div>
+                  <button class="px-4 py-2 rounded-lg gradient-bg hover:shadow-lg transition">
+                    Connect
+                  </button>
+                </div>
+                
+                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+                  <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-lg bg-orange-600 flex items-center justify-center text-white font-bold">
+                      Z
+                    </div>
+                    <div>
+                      <div class="text-white font-medium">Zapier</div>
+                      <div class="text-sm text-gray-400">Not connected</div>
+                    </div>
+                  </div>
+                  <button class="px-4 py-2 rounded-lg gradient-bg hover:shadow-lg transition">
+                    Connect
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Billing -->
+        <section id="billing" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">Billing & Usage</h2>
+          
+          <div class="grid gap-6">
+            <!-- Current Plan -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>💳</span>
+                <span>Current Plan</span>
+              </h3>
+              <div class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 p-6 rounded-lg border border-blue-500/30 mb-4">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-xl font-bold text-white">Pro Plan</h4>
+                  <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">Active</span>
+                </div>
+                <p class="text-gray-300 mb-4">Perfect for professionals and small teams</p>
+                <div class="text-2xl font-bold text-white mb-1">$29<span class="text-lg text-gray-400">/month</span></div>
+                <div class="text-sm text-gray-400">Next billing: March 15, 2025</div>
+              </div>
+              
+              <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-blue-400">5,000</div>
+                  <div class="text-sm text-gray-400">API Calls/month</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-purple-400">50</div>
+                  <div class="text-sm text-gray-400">Max Agents</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-green-400">∞</div>
+                  <div class="text-sm text-gray-400">Integrations</div>
+                </div>
+              </div>
+              
+              <div class="flex gap-3">
+                <button class="gradient-bg px-6 py-2 rounded-lg hover:shadow-lg transition">
+                  Upgrade Plan
+                </button>
+                <button class="px-6 py-2 rounded-lg glass-effect hover:bg-gray-700/50 transition">
+                  Manage Billing
+                </button>
+              </div>
+            </div>
+
+            <!-- Usage Statistics -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>📊</span>
+                <span>Usage This Month</span>
+              </h3>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-300">API Calls</span>
+                    <span class="text-white">2,847 / 5,000</span>
+                  </div>
+                  <div class="bg-gray-700/50 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full" style="width: 57%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-300">Active Agents</span>
+                    <span class="text-white">12 / 50</span>
+                  </div>
+                  <div class="bg-gray-700/50 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-green-500 to-teal-500 h-3 rounded-full" style="width: 24%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-300">Storage Used</span>
+                    <span class="text-white">1.2 GB / 10 GB</span>
+                  </div>
+                  <div class="bg-gray-700/50 rounded-full h-3">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full" style="width: 12%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Security -->
+        <section id="security" class="mb-12">
+          <h2 class="text-2xl font-bold mb-6 text-gradient">Security</h2>
+          
+          <div class="grid gap-6">
+            <!-- Security Settings -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🔒</span>
+                <span>Security Settings</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Two-factor authentication</div>
+                    <div class="text-sm text-gray-400">Add an extra layer of security</div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="text-green-400 text-sm">Enabled</span>
+                    <button class="px-3 py-1 rounded bg-gray-700/50 hover:bg-gray-700 transition text-sm">
+                      Manage
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Login notifications</div>
+                    <div class="text-sm text-gray-400">Get notified of new login attempts</div>
+                  </div>
+                  <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-medium">Session timeout</div>
+                    <div class="text-sm text-gray-400">Automatically log out after inactivity</div>
+                  </div>
+                  <select class="px-3 py-1 rounded-lg glass-effect text-white text-sm focus:outline-none">
+                    <option value="30">30 minutes</option>
+                    <option value="60" selected>1 hour</option>
+                    <option value="240">4 hours</option>
+                    <option value="never">Never</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- API Keys -->
+            <div class="glass-effect p-6 rounded-xl setting-card">
+              <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <span>🔑</span>
+                <span>API Keys</span>
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg">
+                  <div>
+                    <div class="text-white font-medium">Production Key</div>
+                    <div class="text-sm text-gray-400 font-mono">aas_prod_••••••••••••8x9z</div>
+                    <div class="text-xs text-gray-500 mt-1">Created: Jan 15, 2025 • Last used: 2 hours ago</div>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <button class="px-3 py-1 rounded bg-gray-700/50 hover:bg-gray-700 transition text-sm">
+                      Copy
+                    </button>
+                    <button class="px-3 py-1 rounded bg-red-600/20 text-red-400 hover:bg-red-600/30 transition text-sm">
+                      Revoke
+                    </button>
+                  </div>
+                </div>
+                
+                <button class="w-full px-4 py-3 rounded-lg border-2 border-dashed border-gray-600 hover:border-gray-500 transition text-gray-400 hover:text-gray-300">
+                  + Generate New API Key
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Toggle switch functionality
+    function toggleSwitch(element) {
+      element.classList.toggle('active');
+    }
+
+    // Settings navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const navItems = document.querySelectorAll('.setting-nav-item');
+      const sections = document.querySelectorAll('section');
+
+      navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active class from all nav items
+          navItems.forEach(nav => {
+            nav.classList.remove('bg-blue-600/20', 'text-blue-300');
+            nav.classList.add('hover:bg-gray-700/50');
+          });
+          
+          // Add active class to clicked item
+          this.classList.add('bg-blue-600/20', 'text-blue-300');
+          this.classList.remove('hover:bg-gray-700/50');
+          
+          // Get target section
+          const targetId = this.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Handle scroll spy
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navItems.forEach(nav => {
+              nav.classList.remove('bg-blue-600/20', 'text-blue-300');
+              nav.classList.add('hover:bg-gray-700/50');
+              
+              if (nav.getAttribute('href') === `#${id}`) {
+                nav.classList.add('bg-blue-600/20', 'text-blue-300');
+                nav.classList.remove('hover:bg-gray-700/50');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+
+</body>
+</html>
