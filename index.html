@@ -3,374 +3,639 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Agent Studio</title>
-  <link href="./output.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script defer src="./main.js"></script>
+  <title>AI Agent Studio - Create Intelligent AI Agents</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* Custom styles for enhanced aesthetics */
-    .gradient-bg {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Enhanced Gradient Backgrounds */
+    .hero-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     }
     
-    .glass-effect {
-      backdrop-filter: blur(10px);
-      background: rgba(17, 24, 39, 0.8);
+    .section-gradient {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+    }
+    
+    /* Advanced Glass Effects */
+    .glass-card {
+      backdrop-filter: blur(20px);
+      background: rgba(17, 24, 39, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
     
-    .neon-border {
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-      border: 1px solid rgba(59, 130, 246, 0.3);
+    .glass-navbar {
+      backdrop-filter: blur(15px);
+      background: rgba(17, 24, 39, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    .pulse-animation {
-      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    /* Neon Glow Effects */
+    .neon-glow {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+      border: 2px solid rgba(59, 130, 246, 0.3);
     }
     
-    .floating-animation {
-      animation: float 6s ease-in-out infinite;
+    .neon-text {
+      text-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+    }
+    
+    /* Advanced Animations */
+    .float-animation {
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    .pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    
+    .slide-in-left {
+      animation: slideInLeft 1s ease-out forwards;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 1s ease-out forwards;
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
     }
     
     @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-15px) rotate(3deg); }
+      50% { transform: translateY(-10px) rotate(-3deg); }
+      75% { transform: translateY(-20px) rotate(2deg); }
     }
     
+    @keyframes pulseGlow {
+      0%, 100% { 
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 50px rgba(59, 130, 246, 0.6);
+        transform: scale(1.05);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Geometric Shapes */
+    .shape-blob-1 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      opacity: 0.1;
+      animation: morphing 15s ease-in-out infinite;
+    }
+    
+    .shape-blob-2 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      opacity: 0.15;
+      animation: morphing 20s ease-in-out infinite reverse;
+    }
+    
+    @keyframes morphing {
+      0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(0deg) scale(1);
+      }
+      25% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: rotate(90deg) scale(1.1);
+      }
+      50% {
+        border-radius: 70% 30% 50% 60% / 30% 70% 40% 50%;
+        transform: rotate(180deg) scale(0.9);
+      }
+      75% {
+        border-radius: 40% 70% 60% 30% / 70% 50% 60% 30%;
+        transform: rotate(270deg) scale(1.05);
+      }
+    }
+    
+    /* Particle Effects */
+    .particle {
+      position: absolute;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: particle-float 10s linear infinite;
+    }
+    
+    @keyframes particle-float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Hover Effects */
     .hover-lift {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .hover-lift:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     }
     
-    .text-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* Loading States */
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s infinite;
     }
     
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    @keyframes dots {
+      0%, 20% { content: ''; }
+      40% { content: '.'; }
+      60% { content: '..'; }
+      80%, 100% { content: '...'; }
     }
     
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
     
-    .agent-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+    ::-webkit-scrollbar-track {
+      background: rgba(17, 24, 39, 0.5);
     }
     
-    /* Status indicator glow */
-    .status-active { box-shadow: 0 0 10px rgba(34, 197, 94, 0.3); }
-    .status-idle { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
-    .status-inactive { box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
   </style>
 </head>
-<body class="bg-gray-900 text-white font-sans overflow-hidden">
+<body class="bg-gray-900 text-white overflow-x-hidden">
 
-  <!-- Background Effects -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-blue-500 opacity-10 blur-3xl floating-animation"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-purple-500 opacity-10 blur-3xl floating-animation" style="animation-delay: -3s;"></div>
-  </div>
-
-  <!-- Navbar -->
-  <header class="flex justify-between items-center p-4 glass-effect shadow-lg sticky top-0 z-50 border-b border-gray-700/50">
-    <div class="flex items-center space-x-3">
-      <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
-        <span class="text-white font-bold text-sm">AI</span>
-      </div>
-      <h1 class="text-xl font-bold text-gradient">AI Agent Studio</h1>
-    </div>
+  <!-- Animated Background -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <!-- Gradient Orbs -->
+    <div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-3xl float-animation"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-15 blur-3xl float-animation" style="animation-delay: -4s;"></div>
+    <div class="absolute top-1/2 left-1/2 w-64 h-64 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-10 blur-3xl float-animation" style="animation-delay: -2s;"></div>
     
-    <!-- Header Stats -->
-    <div class="hidden md:flex items-center space-x-6 text-sm">
-      <div class="flex items-center space-x-2">
-        <div class="w-2 h-2 bg-green-400 rounded-full pulse-animation"></div>
-        <span class="text-gray-300">3 Active</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
-        <span class="text-gray-300">1 Idle</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <div class="w-2 h-2 bg-red-400 rounded-full"></div>
-        <span class="text-gray-300">1 Inactive</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Layout - Fixed Height -->
-  <div class="flex h-[calc(100vh-5rem)]">
-
-    <!-- Sidebar -->
-    <aside class="glass-effect w-64 p-4 border-r border-gray-700/50 flex flex-col">
-      <h2 class="text-lg font-semibold mb-6 text-gradient">Dashboard</h2>
-      <nav class="flex flex-col gap-2 flex-1">
-        <a href="#" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
-          <span class="text-blue-400 group-hover:text-blue-300">🏠</span>
-          <span class="group-hover:text-white">All Agents</span>
-        </a>
-        <a href="#" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
-          <span class="text-purple-400 group-hover:text-purple-300">📋</span>
-          <span class="group-hover:text-white">My Templates</span>
-        </a>
-        <a href="#" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
-          <span class="text-green-400 group-hover:text-green-300">👥</span>
-          <span class="group-hover:text-white">Shared With Me</span>
-        </a>
-        <a href="./settings.html" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
-          <span class="text-gray-400 group-hover:text-gray-300">⚙️</span>
-          <span class="group-hover:text-white">Settings</span>
-        </a>
-      </nav>
-      
-      <!-- Sidebar Footer -->
-      <div class="mt-auto pt-4 border-t border-gray-700/50">
-        <div class="text-xs text-gray-400 text-center">
-          <div class="mb-2">Total Usage Today</div>
-          <div class="bg-gray-700/50 rounded-full h-2 mb-2">
-            <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: 65%"></div>
-          </div>
-          <div class="text-white font-mono">127 / 200 API calls</div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content - Scrollable -->
-    <main class="flex-1 flex flex-col overflow-hidden">
-      <!-- Header Section -->
-      <div class="p-6 border-b border-gray-700/50">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2 class="text-3xl font-bold mb-2">My Agents</h2>
-            <p class="text-gray-400">Manage and monitor your AI agents</p>
-          </div>
-          <button id="openModal" class="gradient-bg hover:shadow-lg px-6 py-3 rounded-lg shadow-md transition hover-lift neon-border">
-            <span class="flex items-center space-x-2">
-              <span>✨</span>
-              <span class="font-semibold">Create Agent</span>
-            </span>
-          </button>
-        </div>
-
-        <!-- Search and Filter Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div class="relative flex-1 max-w-md">
-            <input id="searchInput" type="text" placeholder="Search agents..." autocomplete="off" 
-                   class="w-full px-4 py-3 pl-10 rounded-lg glass-effect text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition" />
-            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
-          </div>
-          <div class="flex items-center space-x-4">
-            <select id="statusFilter" class="px-4 py-3 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
-              <option value="">All Statuses</option>
-              <option value="Active">Active</option>
-              <option value="Idle">Idle</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-            <button class="px-4 py-3 rounded-lg glass-effect hover:bg-gray-700/50 transition">
-              <span>⚡</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Agent Grid - Scrollable -->
-      <div class="flex-1 p-6 overflow-y-auto scrollbar-hide">
-        <div class="agent-grid">
-          <!-- Enhanced Agent Cards -->
-          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
-            <div class="flex items-start justify-between mb-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg">
-                📧
-              </div>
-              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 group-hover:text-blue-300 transition">Email Summarizer</h3>
-            <p class="text-sm text-gray-400 mb-4">Summarizes your unread emails every morning and sends you a digest.</p>
-            <div class="flex items-center justify-between text-xs text-gray-500">
-              <span>Last run: 2 hours ago</span>
-              <span>⚡ 12 runs today</span>
-            </div>
-          </div>
-
-          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
-            <div class="flex items-start justify-between mb-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg">
-                📰
-              </div>
-              <span class="text-xs bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full border border-yellow-500/30 status-idle">Idle</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 group-hover:text-purple-300 transition">News Aggregator</h3>
-            <p class="text-sm text-gray-400 mb-4">Fetches top headlines from multiple sources and curates them for you.</p>
-            <div class="flex items-center justify-between text-xs text-gray-500">
-              <span>Last run: 30 minutes ago</span>
-              <span>⚡ 8 runs today</span>
-            </div>
-          </div>
-
-          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
-            <div class="flex items-start justify-between mb-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-lg">
-                🌤️
-              </div>
-              <span class="text-xs bg-red-500/20 text-red-300 px-3 py-1 rounded-full border border-red-500/30 status-inactive">Inactive</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 group-hover:text-orange-300 transition">Weather Alert Bot</h3>
-            <p class="text-sm text-gray-400 mb-4">Sends you weather alerts and forecasts for your city and travel destinations.</p>
-            <div class="flex items-center justify-between text-xs text-gray-500">
-              <span>Last run: 1 day ago</span>
-              <span>⚡ 0 runs today</span>
-            </div>
-          </div>
-
-          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
-            <div class="flex items-start justify-between mb-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
-                💰
-              </div>
-              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 group-hover:text-green-300 transition">Stock Monitor</h3>
-            <p class="text-sm text-gray-400 mb-4">Tracks your portfolio and sends alerts on significant price movements.</p>
-            <div class="flex items-center justify-between text-xs text-gray-500">
-              <span>Last run: 5 minutes ago</span>
-              <span>⚡ 24 runs today</span>
-            </div>
-          </div>
-
-          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
-            <div class="flex items-start justify-between mb-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-                🏠
-              </div>
-              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 group-hover:text-indigo-300 transition">Smart Home Manager</h3>
-            <p class="text-sm text-gray-400 mb-4">Automates your smart home devices based on your daily routines.</p>
-            <div class="flex items-center justify-between text-xs text-gray-500">
-              <span>Last run: 1 minute ago</span>
-              <span>⚡ 45 runs today</span>
-            </div>
-          </div>
-
-          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
-            <div class="flex items-start justify-between mb-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold text-lg">
-                🛒
-              </div>
-              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2 group-hover:text-pink-300 transition">Shopping Assistant</h3>
-            <p class="text-sm text-gray-400 mb-4">Finds deals, compares prices, and manages your shopping lists automatically.</p>
-            <div class="flex items-center justify-between text-xs text-gray-500">
-              <span>Last run: 15 minutes ago</span>
-              <span>⚡ 6 runs today</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    <!-- Morphing Shapes -->
+    <div class="shape-blob-1 top-20 right-20"></div>
+    <div class="shape-blob-2 bottom-32 left-20"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle w-2 h-2" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle w-3 h-3" style="left: 20%; animation-delay: 2s;"></div>
+    <div class="particle w-1 h-1" style="left: 30%; animation-delay: 4s;"></div>
+    <div class="particle w-2 h-2" style="left: 40%; animation-delay: 6s;"></div>
+    <div class="particle w-3 h-3" style="left: 60%; animation-delay: 8s;"></div>
+    <div class="particle w-1 h-1" style="left: 70%; animation-delay: 1s;"></div>
+    <div class="particle w-2 h-2" style="left: 80%; animation-delay: 3s;"></div>
+    <div class="particle w-3 h-3" style="left: 90%; animation-delay: 5s;"></div>
   </div>
 
-  <!-- Enhanced Agent Creation Modal -->
-  <div id="agentModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
-    <div class="glass-effect w-full max-w-4xl mx-4 p-6 rounded-2xl shadow-2xl border border-white/10">
+  <!-- Navigation -->
+  <nav class="glass-navbar fixed top-0 left-0 right-0 z-50 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl hero-gradient flex items-center justify-center shadow-lg">
+          <span class="text-white font-bold text-lg">✨</span>
+        </div>
+        <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          AI Agent Studio
+        </h1>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-gray-300 hover:text-white transition-colors duration-300">Features</a>
+        <a href="#how-it-works" class="text-gray-300 hover:text-white transition-colors duration-300">How It Works</a>
+        <a href="#about" class="text-gray-300 hover:text-white transition-colors duration-300">About</a>
+        <a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <button id="loginBtn" class="text-gray-300 hover:text-white font-medium transition-colors duration-300">
+          Login
+        </button>
+        <button id="signupBtn" class="hero-gradient px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 neon-glow">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </nav>
 
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-6">
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+    <div class="max-w-6xl mx-auto text-center z-10">
+      <div class="slide-in-left" style="animation-delay: 0.2s;">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          Build <span class="neon-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Intelligent AI Agents</span>
+          <br />Without Code
+        </h1>
+      </div>
+      
+      <div class="slide-in-right" style="animation-delay: 0.4s;">
+        <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+          Create powerful AI-powered workflows using visual blocks or natural language. 
+          Automate tasks, process data, and build intelligent assistants - all in your browser.
+        </p>
+      </div>
+      
+      <div class="fade-in-up flex flex-col sm:flex-row gap-4 justify-center items-center" style="animation-delay: 0.6s;">
+        <button id="getStartedBtn" class="hero-gradient px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all duration-300 pulse-glow">
+          🚀 Get Started Free
+        </button>
+        <button id="watchDemoBtn" class="glass-card px-8 py-4 rounded-xl font-semibold text-lg hover-lift border-2 border-white/20">
+          ▶️ Watch Demo
+        </button>
+        <button id="continueGuestBtn" class="text-gray-400 hover:text-white underline transition-colors duration-300">
+          Continue as Guest
+        </button>
+      </div>
+      
+      <div class="fade-in-up mt-12" style="animation-delay: 0.8s;">
+        <div class="glass-card p-8 rounded-2xl max-w-4xl mx-auto">
+          <div class="bg-gray-800 rounded-xl p-6 text-left">
+            <div class="flex items-center space-x-2 mb-4">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <div class="font-mono text-sm">
+              <div class="text-blue-400">user@ai-studio:~$ </div>
+              <div class="text-green-400 mt-2">✨ Creating email summarizer agent...</div>
+              <div class="text-yellow-400 mt-1">🔗 Connecting to Gmail API...</div>
+              <div class="text-purple-400 mt-1">🧠 Processing with GPT-4...</div>
+              <div class="text-green-400 mt-1">✅ Agent deployed successfully!</div>
+              <div class="text-gray-400 mt-2 loading-dots">Processing your morning emails</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          Powerful Features
+        </h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          Everything you need to create, deploy, and manage intelligent AI agents
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass-card p-8 rounded-2xl hover-lift">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mb-6 float-animation">
+            <span class="text-2xl">🎨</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Visual Builder</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Drag and drop blocks to create complex workflows. No coding required - just connect the dots and watch your agent come to life.
+          </p>
+        </div>
+        
+        <div class="glass-card p-8 rounded-2xl hover-lift">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mb-6 float-animation" style="animation-delay: -1s;">
+            <span class="text-2xl">💬</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Natural Language</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Simply describe what you want your agent to do. Our AI understands your intent and builds the workflow automatically.
+          </p>
+        </div>
+        
+        <div class="glass-card p-8 rounded-2xl hover-lift">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center mb-6 float-animation" style="animation-delay: -2s;">
+            <span class="text-2xl">🚀</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Instant Deploy</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Your agents run in the cloud automatically. No servers to manage, no infrastructure to worry about - just pure AI power.
+          </p>
+        </div>
+        
+        <div class="glass-card p-8 rounded-2xl hover-lift">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center mb-6 float-animation" style="animation-delay: -3s;">
+            <span class="text-2xl">🔗</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">API Integrations</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Connect to hundreds of services. Gmail, Slack, Twitter, databases, and more - all through our unified interface.
+          </p>
+        </div>
+        
+        <div class="glass-card p-8 rounded-2xl hover-lift">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center mb-6 float-animation" style="animation-delay: -4s;">
+            <span class="text-2xl">👥</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Agent Marketplace</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Share your creations or use agents built by the community. Discover new workflows and accelerate your automation.
+          </p>
+        </div>
+        
+        <div class="glass-card p-8 rounded-2xl hover-lift">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center mb-6 float-animation" style="animation-delay: -5s;">
+            <span class="text-2xl">📱</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Mobile Ready</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Build and manage your agents from anywhere. Our responsive design works perfectly on phones, tablets, and desktops.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section-gradient py-20 px-6 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
+      <p class="text-xl text-blue-100 mb-16 max-w-3xl mx-auto">
+        From idea to intelligent agent in just three simple steps
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="relative">
+          <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 text-3xl border-2 border-white/20">
+            1️⃣
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Design Your Agent</h3>
+          <p class="text-blue-100 leading-relaxed">
+            Use our visual builder or simply describe what you want in plain English. Our AI will help design the perfect workflow.
+          </p>
+        </div>
+        
+        <div class="relative">
+          <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 text-3xl border-2 border-white/20">
+            2️⃣
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Connect & Configure</h3>
+          <p class="text-blue-100 leading-relaxed">
+            Link your favorite apps and services. Set up triggers, actions, and conditions with our intuitive configuration panels.
+          </p>
+        </div>
+        
+        <div class="relative">
+          <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 text-3xl border-2 border-white/20">
+            3️⃣
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Deploy & Enjoy</h3>
+          <p class="text-blue-100 leading-relaxed">
+            Hit deploy and watch your agent spring into action. Monitor performance, make tweaks, and let AI handle the rest.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        About AI Agent Studio
+      </h2>
+      <div class="glass-card p-8 rounded-2xl">
+        <div class="w-24 h-24 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6 flex items-center justify-center">
+          <span class="text-4xl">👨‍💻</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">Jahnu Tanai</h3>
+        <p class="text-blue-400 mb-6">Founder & AI Engineer</p>
+        <p class="text-gray-300 leading-relaxed mb-6">
+          After years of building AI systems at tech giants, I realized that the power of AI should be accessible to everyone - not just engineers. 
+          AI Agent Studio is my vision of democratizing artificial intelligence, making it as easy to create an AI agent as it is to send an email.
+        </p>
+        <p class="text-gray-400 leading-relaxed">
+          "The future belongs to those who can harness AI's potential. We're here to make sure that future includes everyone."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-6 bg-gray-800/50">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">Get In Touch</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="glass-card p-8 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+          <div class="space-y-4 text-left">
+            <div class="flex items-center space-x-3">
+              <span class="text-blue-400">📧</span>
+              <span>hello@aiagentstudio.com</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-green-400">📱</span>
+              <span>+1 (555) 123-4567</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-purple-400">🐦</span>
+              <span>@AIAgentStudio</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-pink-400">💼</span>
+              <span>LinkedIn: /company/ai-agent-studio</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass-card p-8 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Quick Message</h3>
+          <form class="space-y-4">
+            <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
+            <textarea placeholder="Your message" rows="4" class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors resize-none"></textarea>
+            <button type="submit" class="w-full hero-gradient py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+              Send Message ✉️
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-6 border-t border-gray-700/50">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div class="flex items-center space-x-3 mb-4 md:mb-0">
+        <div class="w-8 h-8 rounded-lg hero-gradient flex items-center justify-center">
+          <span class="text-white font-bold text-sm">✨</span>
+        </div>
+        <span class="font-semibold">AI Agent Studio</span>
+      </div>
+      <div class="text-gray-400 text-sm">
+        © 2025 AI Agent Studio. All rights reserved. | Currently in Beta
+      </div>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="glass-card w-full max-w-md mx-4 p-8 rounded-2xl">
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold mb-2">Welcome Back</h3>
+        <p class="text-gray-400">Sign in to your account</p>
+      </div>
+      
+      <form id="loginForm" class="space-y-4">
         <div>
-          <h3 class="text-2xl font-bold text-white mb-1">Create New Agent</h3>
-          <p class="text-gray-400">Design your AI agent using chat or visual blocks</p>
+          <input type="email" id="loginEmail" placeholder="Email" required 
+                 class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
         </div>
-        <button id="closeModal" class="text-gray-400 hover:text-white text-3xl transition">&times;</button>
-      </div>
-
-      <!-- Mode Switch Tabs -->
-      <div class="flex gap-1 p-1 bg-gray-800/50 rounded-lg mb-6 w-fit">
-        <button id="tabChat" class="tab-switch px-6 py-2 rounded-md bg-blue-600 text-white font-medium transition">
-          💬 Chat Mode
+        <div>
+          <input type="password" id="loginPassword" placeholder="Password" required 
+                 class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
+        </div>
+        <button type="submit" class="w-full hero-gradient py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+          Sign In
         </button>
-        <button id="tabBlocks" class="tab-switch px-6 py-2 rounded-md text-gray-400 hover:text-white font-medium transition">
-          🧩 Block Mode
-        </button>
-      </div>
-
-      <!-- Chat Input UI -->
-      <div id="chatMode" class="space-y-4">
-        <div id="chatHistory" class="h-64 overflow-y-auto glass-effect p-4 rounded-xl space-y-3 text-sm scrollbar-hide">
-          <div class="text-center text-gray-400 text-xs mt-20">
-            Start describing your agent and I'll help you build it! ✨
-          </div>
-        </div>
-        <div class="flex items-center gap-3">
-          <input id="chatInput" type="text" placeholder="Describe your agent (e.g., 'Create an agent that monitors my website uptime...')" autocomplete="off" 
-                 class="flex-1 px-4 py-3 rounded-lg glass-effect text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
-          <button id="micBtn" class="p-3 rounded-lg glass-effect hover:bg-gray-700/50 text-white hover:text-blue-400 transition">
-            🎤
-          </button>
-          <button id="sendChat" class="gradient-bg px-6 py-3 rounded-lg hover:shadow-lg font-semibold transition">
-            Send
-          </button>
+      </form>
+      
+      <div class="mt-6 text-center">
+        <p class="text-gray-400 text-sm mb-4">Demo Credentials:</p>
+        <div class="bg-gray-800/50 p-3 rounded-lg text-sm font-mono">
+          <div class="text-blue-400">Email: demo@aiagentstudio.com</div>
+          <div class="text-green-400">Password: Demo123!</div>
         </div>
       </div>
-
-      <!-- Block-Based UI -->
-      <div id="blockMode" class="hidden space-y-4">
-        <div class="text-white text-sm mb-4">
-          <span class="text-blue-400">💡 Pro Tip:</span> Drag and connect blocks to create your agent's workflow
-        </div>
-        <div class="glass-effect rounded-xl p-6">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-lg shadow-lg cursor-move hover-lift">
-              <div class="text-white font-semibold mb-1">🔔 Trigger</div>
-              <div class="text-blue-100 text-sm">When Email Received</div>
-            </div>
-            <div class="bg-gradient-to-r from-green-500 to-green-600 p-4 rounded-lg shadow-lg cursor-move hover-lift">
-              <div class="text-white font-semibold mb-1">🔍 Process</div>
-              <div class="text-green-100 text-sm">Extract Summary</div>
-            </div>
-            <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-4 rounded-lg shadow-lg cursor-move hover-lift">
-              <div class="text-white font-semibold mb-1">📤 Action</div>
-              <div class="text-purple-100 text-sm">Send via WhatsApp</div>
-            </div>
-          </div>
-          <div class="bg-gray-800/50 rounded-lg p-8 border-2 border-dashed border-gray-600 text-center">
-            <div class="text-gray-400 mb-2">🎯 Drop Zone</div>
-            <div class="text-gray-500 text-sm">Drag blocks here to build your workflow</div>
-          </div>
-        </div>
-        <div class="text-amber-400 text-sm flex items-center space-x-2">
-          <span>⚠️</span>
-          <span>Visual workflow builder coming soon - Currently in development</span>
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-700/50">
-        <button id="closeModal2" class="px-6 py-3 rounded-lg glass-effect hover:bg-gray-700/50 transition">
+      
+      <div class="flex justify-between items-center mt-6 pt-6 border-t border-gray-700/50">
+        <button id="closeLoginModal" class="text-gray-400 hover:text-white transition-colors">
           Cancel
         </button>
-        <button id="createAgent" class="gradient-bg px-6 py-3 rounded-lg hover:shadow-lg font-semibold transition">
-          Create Agent ✨
+        <button id="switchToSignup" class="text-blue-400 hover:text-blue-300 transition-colors">
+          Need an account?
         </button>
       </div>
     </div>
   </div>
 
-  <script defer src="./main.js"></script>
-  <script defer src="./search.js"></script>
-  <script defer src="./modal.js"></script>
-  <script defer src="./modal-chat.js"></script>
-  <script defer src="./modal-block.js"></script>
+  <!-- Signup Modal -->
+  <div id="signupModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="glass-card w-full max-w-md mx-4 p-8 rounded-2xl">
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold mb-2">Join AI Agent Studio</h3>
+        <p class="text-gray-400">Create your free account</p>
+      </div>
+      
+      <form id="signupForm" class="space-y-4">
+        <div>
+          <input type="text" id="signupName" placeholder="Full Name" required 
+                 class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
+        </div>
+        <div>
+          <input type="email" id="signupEmail" placeholder="Email" required 
+                 class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
+        </div>
+        <div>
+          <input type="password" id="signupPassword" placeholder="Password" required 
+                 class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
+        </div>
+        <div>
+          <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required 
+                 class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors">
+        </div>
+        <div class="flex items-center space-x-2">
+          <input type="checkbox" id="agreeTerms" required class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+          <label for="agreeTerms" class="text-sm text-gray-400">
+            I agree to the <a href="#" class="text-blue-400 hover:text-blue-300">Terms & Privacy Policy</a>
+          </label>
+        </div>
+        <button type="submit" class="w-full hero-gradient py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+          Create Account
+        </button>
+      </form>
+      
+      <div class="flex justify-between items-center mt-6 pt-6 border-t border-gray-700/50">
+        <button id="closeSignupModal" class="text-gray-400 hover:text-white transition-colors">
+          Cancel
+        </button>
+        <button id="switchToLogin" class="text-blue-400 hover:text-blue-300 transition-colors">
+          Already have an account?
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Messages -->
+  <div id="successMessage" class="fixed top-4 right-4 z-60 hidden">
+    <div class="glass-card p-4 rounded-lg border-l-4 border-green-500">
+      <div class="flex items-center">
+        <span class="text-green-400 mr-2">✅</span>
+        <span id="successText" class="text-white"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Messages -->
+  <div id="errorMessage" class="fixed top-4 right-4 z-60 hidden">
+    <div class="glass-card p-4 rounded-lg border-l-4 border-red-500">
+      <div class="flex items-center">
+        <span class="text-red-400 mr-2">❌</span>
+        <span id="errorText" class="text-white"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-70 hidden">
+    <div class="glass-card p-8 rounded-2xl text-center">
+      <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <h3 class="text-xl font-semibold mb-2">Setting up your workspace...</h3>
+      <p class="text-gray-400">This may take a few moments</p>
+    </div>
+  </div>
+
+  <script defer src="./index.js"></script>
 
 </body>
 </html>

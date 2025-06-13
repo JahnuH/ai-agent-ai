@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Studio</title>
+  <link href="./output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script defer src="./main.js"></script>
+  <style>
+    /* Custom styles for enhanced aesthetics */
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      background: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .neon-border {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    .floating-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .hover-lift {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    /* Status indicator glow */
+    .status-active { box-shadow: 0 0 10px rgba(34, 197, 94, 0.3); }
+    .status-idle { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+    .status-inactive { box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans overflow-hidden">
+
+  <!-- Background Effects -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-blue-500 opacity-10 blur-3xl floating-animation"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-purple-500 opacity-10 blur-3xl floating-animation" style="animation-delay: -3s;"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center p-4 glass-effect shadow-lg sticky top-0 z-50 border-b border-gray-700/50">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
+        <span class="text-white font-bold text-sm">AI</span>
+      </div>
+      <h1 class="text-xl font-bold text-gradient">AI Agent Studio</h1>
+    </div>
+    
+    <!-- Header Stats -->
+    <div class="hidden md:flex items-center space-x-6 text-sm">
+      <div class="flex items-center space-x-2">
+        <div class="w-2 h-2 bg-green-400 rounded-full pulse-animation"></div>
+        <span class="text-gray-300">3 Active</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+        <span class="text-gray-300">1 Idle</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+        <span class="text-gray-300">1 Inactive</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout - Fixed Height -->
+  <div class="flex h-[calc(100vh-5rem)]">
+
+    <!-- Sidebar -->
+    <aside class="glass-effect w-64 p-4 border-r border-gray-700/50 flex flex-col">
+      <h2 class="text-lg font-semibold mb-6 text-gradient">Dashboard</h2>
+      <nav class="flex flex-col gap-2 flex-1">
+        <a href="#" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
+          <span class="text-blue-400 group-hover:text-blue-300">🏠</span>
+          <span class="group-hover:text-white">All Agents</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
+          <span class="text-purple-400 group-hover:text-purple-300">📋</span>
+          <span class="group-hover:text-white">My Templates</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
+          <span class="text-green-400 group-hover:text-green-300">👥</span>
+          <span class="group-hover:text-white">Shared With Me</span>
+        </a>
+        <a href="./settings.html" class="flex items-center space-x-3 hover:bg-gray-700/50 px-3 py-3 rounded-lg transition group">
+          <span class="text-gray-400 group-hover:text-gray-300">⚙️</span>
+          <span class="group-hover:text-white">Settings</span>
+        </a>
+      </nav>
+      
+      <!-- Sidebar Footer -->
+      <div class="mt-auto pt-4 border-t border-gray-700/50">
+        <div class="text-xs text-gray-400 text-center">
+          <div class="mb-2">Total Usage Today</div>
+          <div class="bg-gray-700/50 rounded-full h-2 mb-2">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: 65%"></div>
+          </div>
+          <div class="text-white font-mono">127 / 200 API calls</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content - Scrollable -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <!-- Header Section -->
+      <div class="p-6 border-b border-gray-700/50">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-3xl font-bold mb-2">My Agents</h2>
+            <p class="text-gray-400">Manage and monitor your AI agents</p>
+          </div>
+          <button id="openModal" class="gradient-bg hover:shadow-lg px-6 py-3 rounded-lg shadow-md transition hover-lift neon-border">
+            <span class="flex items-center space-x-2">
+              <span>✨</span>
+              <span class="font-semibold">Create Agent</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div class="relative flex-1 max-w-md">
+            <input id="searchInput" type="text" placeholder="Search agents..." autocomplete="off" 
+                   class="w-full px-4 py-3 pl-10 rounded-lg glass-effect text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition" />
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
+          </div>
+          <div class="flex items-center space-x-4">
+            <select id="statusFilter" class="px-4 py-3 rounded-lg glass-effect text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+              <option value="">All Statuses</option>
+              <option value="Active">Active</option>
+              <option value="Idle">Idle</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            <button class="px-4 py-3 rounded-lg glass-effect hover:bg-gray-700/50 transition">
+              <span>⚡</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent Grid - Scrollable -->
+      <div class="flex-1 p-6 overflow-y-auto scrollbar-hide">
+        <div class="agent-grid">
+          <!-- Enhanced Agent Cards -->
+          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg">
+                📧
+              </div>
+              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-blue-300 transition">Email Summarizer</h3>
+            <p class="text-sm text-gray-400 mb-4">Summarizes your unread emails every morning and sends you a digest.</p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>Last run: 2 hours ago</span>
+              <span>⚡ 12 runs today</span>
+            </div>
+          </div>
+
+          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg">
+                📰
+              </div>
+              <span class="text-xs bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full border border-yellow-500/30 status-idle">Idle</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-purple-300 transition">News Aggregator</h3>
+            <p class="text-sm text-gray-400 mb-4">Fetches top headlines from multiple sources and curates them for you.</p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>Last run: 30 minutes ago</span>
+              <span>⚡ 8 runs today</span>
+            </div>
+          </div>
+
+          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-lg">
+                🌤️
+              </div>
+              <span class="text-xs bg-red-500/20 text-red-300 px-3 py-1 rounded-full border border-red-500/30 status-inactive">Inactive</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-orange-300 transition">Weather Alert Bot</h3>
+            <p class="text-sm text-gray-400 mb-4">Sends you weather alerts and forecasts for your city and travel destinations.</p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>Last run: 1 day ago</span>
+              <span>⚡ 0 runs today</span>
+            </div>
+          </div>
+
+          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
+                💰
+              </div>
+              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-green-300 transition">Stock Monitor</h3>
+            <p class="text-sm text-gray-400 mb-4">Tracks your portfolio and sends alerts on significant price movements.</p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>Last run: 5 minutes ago</span>
+              <span>⚡ 24 runs today</span>
+            </div>
+          </div>
+
+          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                🏠
+              </div>
+              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-indigo-300 transition">Smart Home Manager</h3>
+            <p class="text-sm text-gray-400 mb-4">Automates your smart home devices based on your daily routines.</p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>Last run: 1 minute ago</span>
+              <span>⚡ 45 runs today</span>
+            </div>
+          </div>
+
+          <div class="glass-effect p-6 rounded-xl shadow-lg hover-lift transition-all cursor-pointer group">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold text-lg">
+                🛒
+              </div>
+              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full border border-green-500/30 status-active">Active</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 group-hover:text-pink-300 transition">Shopping Assistant</h3>
+            <p class="text-sm text-gray-400 mb-4">Finds deals, compares prices, and manages your shopping lists automatically.</p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>Last run: 15 minutes ago</span>
+              <span>⚡ 6 runs today</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Enhanced Agent Creation Modal -->
+  <div id="agentModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="glass-effect w-full max-w-4xl mx-4 p-6 rounded-2xl shadow-2xl border border-white/10">
+
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-1">Create New Agent</h3>
+          <p class="text-gray-400">Design your AI agent using chat or visual blocks</p>
+        </div>
+        <button id="closeModal" class="text-gray-400 hover:text-white text-3xl transition">&times;</button>
+      </div>
+
+      <!-- Mode Switch Tabs -->
+      <div class="flex gap-1 p-1 bg-gray-800/50 rounded-lg mb-6 w-fit">
+        <button id="tabChat" class="tab-switch px-6 py-2 rounded-md bg-blue-600 text-white font-medium transition">
+          💬 Chat Mode
+        </button>
+        <button id="tabBlocks" class="tab-switch px-6 py-2 rounded-md text-gray-400 hover:text-white font-medium transition">
+          🧩 Block Mode
+        </button>
+      </div>
+
+      <!-- Chat Input UI -->
+      <div id="chatMode" class="space-y-4">
+        <div id="chatHistory" class="h-64 overflow-y-auto glass-effect p-4 rounded-xl space-y-3 text-sm scrollbar-hide">
+          <div class="text-center text-gray-400 text-xs mt-20">
+            Start describing your agent and I'll help you build it! ✨
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <input id="chatInput" type="text" placeholder="Describe your agent (e.g., 'Create an agent that monitors my website uptime...')" autocomplete="off" 
+                 class="flex-1 px-4 py-3 rounded-lg glass-effect text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50" />
+          <button id="micBtn" class="p-3 rounded-lg glass-effect hover:bg-gray-700/50 text-white hover:text-blue-400 transition">
+            🎤
+          </button>
+          <button id="sendChat" class="gradient-bg px-6 py-3 rounded-lg hover:shadow-lg font-semibold transition">
+            Send
+          </button>
+        </div>
+      </div>
+
+      <!-- Block-Based UI -->
+      <div id="blockMode" class="hidden space-y-4">
+        <div class="text-white text-sm mb-4">
+          <span class="text-blue-400">💡 Pro Tip:</span> Drag and connect blocks to create your agent's workflow
+        </div>
+        <div class="glass-effect rounded-xl p-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-lg shadow-lg cursor-move hover-lift">
+              <div class="text-white font-semibold mb-1">🔔 Trigger</div>
+              <div class="text-blue-100 text-sm">When Email Received</div>
+            </div>
+            <div class="bg-gradient-to-r from-green-500 to-green-600 p-4 rounded-lg shadow-lg cursor-move hover-lift">
+              <div class="text-white font-semibold mb-1">🔍 Process</div>
+              <div class="text-green-100 text-sm">Extract Summary</div>
+            </div>
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-4 rounded-lg shadow-lg cursor-move hover-lift">
+              <div class="text-white font-semibold mb-1">📤 Action</div>
+              <div class="text-purple-100 text-sm">Send via WhatsApp</div>
+            </div>
+          </div>
+          <div class="bg-gray-800/50 rounded-lg p-8 border-2 border-dashed border-gray-600 text-center">
+            <div class="text-gray-400 mb-2">🎯 Drop Zone</div>
+            <div class="text-gray-500 text-sm">Drag blocks here to build your workflow</div>
+          </div>
+        </div>
+        <div class="text-amber-400 text-sm flex items-center space-x-2">
+          <span>⚠️</span>
+          <span>Visual workflow builder coming soon - Currently in development</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-700/50">
+        <button id="closeModal2" class="px-6 py-3 rounded-lg glass-effect hover:bg-gray-700/50 transition">
+          Cancel
+        </button>
+        <button id="createAgent" class="gradient-bg px-6 py-3 rounded-lg hover:shadow-lg font-semibold transition">
+          Create Agent ✨
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="./main.js"></script>
+  <script defer src="./search.js"></script>
+  <script defer src="./modal.js"></script>
+  <script defer src="./modal-chat.js"></script>
+  <script defer src="./modal-block.js"></script>
+
+</body>
+</html>
